@@ -1,1 +1,17 @@
-tt
+{
+  "name": "geocentrix-bot",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "@whiskeysockets/baileys": "^6.7.0",
+    "axios": "^1.7.0",
+    "express": "^4.19.2",
+    "fs-extra": "^11.2.0",
+    "moment": "^2.30.1",
+    "node-cron": "^3.0.3",
+    "qrcode": "^1.5.3"
+  }
+}
