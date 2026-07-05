@@ -24,13 +24,13 @@ import { writeErrorLog } from './lib/logger.js';
 import { handleMessages, handleGroupParticipantUpdate, handleStatus, handleCall } from './lib/messageHandler.js';
 import commandHandler from './lib/commandHandler.js';
 store.readFromFile();
-setInterval(() => store.writeToFile(), config.storeWriteInterval || 10000);
+setInterval(() => store.writeToFile(), config.storeWriteInterval || 1000);
 setInterval(() => {
     if (global.gc) {
         global.gc();
         console.log('🧹 Garbage collection completed');
     }
-}, 60000);
+}, 600000);
 setInterval(() => {
     const used = process.memoryUsage().rss / 1024 / 1024;
     if (used > 400) {
