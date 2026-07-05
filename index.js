@@ -444,10 +444,9 @@ async function startQasimDev() {
                         text: `🤖 Bot Connected Successfully!\n\n⏰ Time: ${new Date().toLocaleString()}\n✅ Status: Online and Ready!${ghostStatus}\n\n✅Make sure to join below channel`,
                         contextInfo: {
                             forwardingScore: 1,
-                            isForwarded: true,
+                            isForwarded: false,
                             forwardedNewsletterMessageInfo: {
-                                newsletterJid: '120363319098372999@newsletter',
-                                newsletterName: 'GEOCENTRIX',
+                            newsletterName: 'GEOCENTRIX',
                                 serverMessageId: -1
                             }
                         }
