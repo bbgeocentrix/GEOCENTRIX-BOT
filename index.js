@@ -516,7 +516,7 @@ async function main() {
     await commandHandler.loadCommands();
     printLog('info', 'Starting GEOCENTRIX-BOT...');
     await initializeSession();
-    await delay(3000);
+    await delay(1000);
     startQasimDev().catch((error) => {
         printLog('error', `Fatal error: ${error.message}`);
         if (rl && !rlClosed)
