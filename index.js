@@ -290,7 +290,7 @@ async function startQasimDev() {
                             text: '❌ An error occurred while processing your message.',
                             contextInfo: {
                                 forwardingScore: 1,
-                                isForwarded: false,
+                                isForwarded: true,
                                 forwardedNewsletterMessageInfo: {
                                     newsletterName: 'GEOCENTRIX',
                                     serverMessageId: -1
@@ -444,7 +444,7 @@ async function startQasimDev() {
                         text: `🤖 Bot Connected Successfully!\n\n⏰ Time: ${new Date().toLocaleString()}\n✅ Status: Online and Ready!${ghostStatus}\n\n✅Make sure to join below channel`,
                         contextInfo: {
                             forwardingScore: 1,
-                            isForwarded: false,
+                            isForwarded: true,
                             forwardedNewsletterMessageInfo: {
                             newsletterName: 'GEOCENTRIX',
                                 serverMessageId: -1
