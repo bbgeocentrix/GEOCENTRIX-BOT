@@ -45,7 +45,7 @@ export default {
             const caption = `📘 *Facebook Downloader*
 🎞 Quality: *${selected.resolution || 'Unknown'}*
 
-> *_Downloaded by MEGA-MD_*`;
+> *_Downloaded by GEOCENTRIX-BOT_*`;
             await sock.sendMessage(chatId, { video: { url: videoUrl }, mimetype: 'video/*', caption }, { quoted: message });
         }
         catch (err) {
