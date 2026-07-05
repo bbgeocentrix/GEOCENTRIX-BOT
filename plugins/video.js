@@ -63,7 +63,7 @@ export default {
                 video: { url: videoData.downloadUrl },
                 mimetype: 'video/*',
                 fileName: `${videoData.title || videoTitle || 'video'}.mp4`,
-                caption: `🎬 *${videoData.title || videoTitle || 'Video'}*\n\n> *_Downloaded by GEOCENTRIX-BOT_*`
+                caption: `🎬 *${videoData.title || videoTitle || 'Video'}*\n\n> *_Downloaded by GEOCENTRIX-BOT_* \nâœ…join below channel \n Whatsapp Channel link:- https://whatsapp.com/channel/0029VafUaD2DeON884lZ620e`
             }, { quoted: message });
         }
         catch (err) {
