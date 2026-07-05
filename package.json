@@ -76,10 +76,6 @@
     "stickers-formatter": "^0.0.2",
     "syntax-error": "^1.4.0",
     "yt-search": "^2.12.1"
-    "@distube/ytdl-core": "*",
-    "@renpwn/fb-downloader": "*",
-    "@tobyg74/tiktok-api-dl": "*",
-    "instagram-url-direct": "*",
   },
   "devDependencies": {
     "eslint": "^10.0.2",
