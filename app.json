@@ -56,7 +56,7 @@
       "value": "private"
     },
     "TIMEZONE": {
-      "description": "Your timezone (e.g. Asia/Karachi, America/New_York)",
+      "description": "Your timezone (e.g. Asia/Colomboi, America/washington)",
       "required": false,
       "value": "Asia/Colombo"
     },
