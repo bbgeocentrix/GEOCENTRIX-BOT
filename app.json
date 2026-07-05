@@ -38,7 +38,7 @@
     "BOT_OWNER": {
       "description": "Owner display name",
       "required": false,
-      "value": "GEOCENTRIX"
+      "value": "BIG BOSS"
     },
     "PREFIXES": {
       "description": "Command prefixes separated by comma (e.g. .,!,/)",
