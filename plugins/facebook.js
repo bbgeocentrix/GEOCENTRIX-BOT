@@ -46,7 +46,7 @@ export default {
 🎞 Quality: *${selected.resolution || 'Unknown'}*
 
 > *_Downloaded by MEGA-MD_*`;
-            await sock.sendMessage(chatId, { video: { url: videoUrl }, mimetype: 'video/mp4', caption }, { quoted: message });
+            await sock.sendMessage(chatId, { video: { url: videoUrl }, mimetype: 'video/*', caption }, { quoted: message });
         }
         catch (err) {
             console.error('Facebook downloader error:', err);
