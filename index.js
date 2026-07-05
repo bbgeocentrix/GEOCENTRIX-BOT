@@ -557,13 +557,13 @@ setInterval(() => {
         for (const file of files) {
             const filePath = path.join(customTemp, file);
             fs.stat(filePath, (err, stats) => {
-                if (!err && Date.now() - stats.mtimeMs > 3 * 60 * 60 * 1000) {
+                if (!err && Date.now() - stats.mtimeMs > 5* 60 * 60 * 1000) {
                     fs.unlink(filePath, () => { });
                 }
             });
         }
     });
-}, 1 * 60 * 60 * 1000);
+}, 5 * 60 * 60 * 1000);
 // Syntax check dist files
 const folders = [
     path.join(__dirname, './lib'),
