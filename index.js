@@ -162,7 +162,7 @@ async function initializeSession() {
         return true;
     try {
         await SaveCreds(txt);
-        await delay(2000);
+        await delay(1000);
         if (hasValidSession()) {
             printLog('success', 'Session file verified and valid');
             await delay(1000);
@@ -386,7 +386,7 @@ async function startQasimDev() {
                             rmSync('./session', { recursive: true, force: true });
                         }
                         catch (_e) { /* ignore */ }
-                        await delay(3000);
+                        await delay(1000);
                         startQasimDev();
                     }
                     else {
@@ -455,7 +455,7 @@ async function startQasimDev() {
                 catch (error) {
                     printLog('error', `Failed to send connection message: ${error.message}`);
                 }
-                await delay(1999);
+                await delay(1000);
                 try {
                     owner = JSON.parse(fs.readFileSync('./data/owner.json', 'utf-8'));
                 }
@@ -476,13 +476,13 @@ async function startQasimDev() {
                         rmSync('./session', { recursive: true, force: true });
                     }
                     catch (_e) { /* ignore */ }
-                    await delay(3000);
+                    await delay(1000);
                     startQasimDev();
                     return;
                 }
                 if (shouldReconnect) {
                     printLog('connection', 'Reconnecting in 5 seconds...');
-                    await delay(5000);
+                    await delay(1000);
                     startQasimDev();
                 }
             }
@@ -507,7 +507,7 @@ async function startQasimDev() {
             rl.close();
             rl = null;
         }
-        await delay(5000);
+        await delay(1000);
         startQasimDev();
     }
 }
