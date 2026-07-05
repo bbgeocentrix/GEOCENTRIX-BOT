@@ -17,15 +17,15 @@ const downloadWithRetry = async (url, retries = 3) => {
         catch (err) {
             if (i === retries - 1)
                 throw err;
-            console.log(`Download attempt ${i + 1} failed, retrying in 5s...`);
-            await wait(5000);
+            console.log(`Download attempt ${i + 1} failed, retrying in 1s...`);
+            await wait(1000);
         }
     }
     throw new Error('All download attempts failed');
 };
 export default {
     command: 'video',
-    aliases: ['ytmp4', 'ytvideo', 'ytdl'],
+    aliases: ['ytmp4', 'ytvideo', 'ytdl', 'yt'],
     category: 'download',
     description: 'Download YouTube videos by link or search',
     usage: '.video <youtube link | search query>',
@@ -61,9 +61,9 @@ export default {
             const videoData = await downloadWithRetry(videoUrl);
             await sock.sendMessage(chatId, {
                 video: { url: videoData.downloadUrl },
-                mimetype: 'video/mp4',
+                mimetype: 'video/*',
                 fileName: `${videoData.title || videoTitle || 'video'}.mp4`,
-                caption: `🎬 *${videoData.title || videoTitle || 'Video'}*\n\n> *_Downloaded by MEGA-MD_*`
+                caption: `🎬 *${videoData.title || videoTitle || 'Video'}*\n\n> *_Downloaded by GEOCENTRIX-BOT_*`
             }, { quoted: message });
         }
         catch (err) {
