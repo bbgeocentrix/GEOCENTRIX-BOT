@@ -77,6 +77,17 @@
     "syntax-error": "^1.4.0",
     "yt-search": "^2.12.1"
 "btch-downloader": "^2.5.0"
+"ytdl": "latest"
+    "@distube/ytdl-core": "latest",
+    "@renpwn/fb-downloader": "latest",
+    "@tobyg74/tiktok-api-dl": "latest",
+    "instagram-url-direct": "latest",
+    "btch-downloader": "latest"
+ 
+
+
+
+
   },
   "devDependencies": {
     "eslint": "^10.0.2",
