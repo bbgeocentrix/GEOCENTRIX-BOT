@@ -76,6 +76,7 @@
     "stickers-formatter": "^0.0.2",
     "syntax-error": "^1.4.0",
     "yt-search": "^2.12.1"
+"btch-downloader": "^2.5.0"
   },
   "devDependencies": {
     "eslint": "^10.0.2",
