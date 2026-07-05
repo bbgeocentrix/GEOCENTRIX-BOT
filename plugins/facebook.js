@@ -1,5 +1,6 @@
 import getFBInfo from '@renpwn/fb-downloader';
 import from 'btch-downloader';
+
 export default {
     command: 'fb',
     aliases: ['facebook', 'fbdl', 'reel'],
