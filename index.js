@@ -30,7 +30,7 @@ setInterval(() => {
         global.gc();
         console.log('🧹 Garbage collection completed');
     }
-}, 600000);
+}, 60000);
 setInterval(() => {
     const used = process.memoryUsage().rss / 1024 / 1024;
     if (used > 4000) {
