@@ -25,7 +25,7 @@ export default {
                 return await sock.sendMessage(chatId, { text: '❌ Invalid Facebook link.\nPlease send a valid Facebook video URL.' }, { quoted: message });
             }
             await sock.sendMessage(chatId, {
-                react: { text: '🔄', key: message.key }
+                react: { text: '📥', key: message.key }
             });
             const apiUrl = `https://gtech-api-xtp1.onrender.com/api/download/fb?url=${encodeURIComponent(url)}&apikey=APIKEY`;
             const res = await axios.get(apiUrl, AXIOS_DEFAULTS);
