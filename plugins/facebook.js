@@ -1,86 +1,51 @@
-import axios from 'axios';
-
-const DL_API = 'https://api.qasimdev.dpdns.org/api/loaderto/download';
-const API_KEY = 'xbps-install-Syu';
-
-const wait = (ms) => new Promise(resolve => setTimeout(resolve, ms));
-
-const downloadWithRetry = async (url, retries = 3) => {
-    for (let i = 0; i < retries; i++) {
-        try {
-            const { data } = await axios.get(DL_API, {
-                params: {
-                    apiKey: API_KEY,
-                    url
-                },
-                timeout: 120000
-            });
-
-            if (data?.data?.downloadUrl) {
-                return data.data;
-            }
-
-            throw new Error('No download URL');
-        } catch (err) {
-            if (i === retries - 1) throw err;
-
-            console.log(`Retry ${i + 1}...`);
-            await wait(1000);
-        }
-    }
-};
+import fbDownloader from '@xaviabot/fb-downloader';
 
 export default {
     command: 'fb',
-    aliases: ['facebook', 'fbvideo', 'facebookdl'],
+    aliases: ['facebook', 'fbvideo', 'fbdl'],
     category: 'download',
-    description: 'Download Facebook videos',
-    usage: '.fb <facebook video url>',
+    description: 'Download Facebook videos & reels',
+    usage: '.fb <facebook url>',
 
     async handler(sock, message, args, context) {
         const chatId = context.chatId || message.key.remoteJid;
-        const url = args[0];
+        const url = args.join(' ').trim();
 
         if (!url) {
             return sock.sendMessage(chatId, {
-                text: '📹 *Send a Facebook video link.*\n\nExample:\n.fb https://www.facebook.com/share/v/xxxxxxxx/'
-            }, { quoted: message });
-        }
-
-        const fbRegex =
-            /^(https?:\/\/)?(www\.)?(facebook\.com|fb\.watch|m\.facebook\.com)\//i;
-
-        if (!fbRegex.test(url)) {
-            return sock.sendMessage(chatId, {
-                text: '❌ Invalid Facebook video link!'
+                text: '📹 Send a Facebook video or Reel link.'
             }, { quoted: message });
         }
 
         try {
-
             await sock.sendMessage(chatId, {
                 text: '⏳ Downloading Facebook video...'
             }, { quoted: message });
 
-            const video = await downloadWithRetry(url);
+            const result = await fbDownloader(url);
+
+            const video =
+                result.hd ||
+                result.sd ||
+                result.url;
+
+            if (!video) {
+                throw new Error('No downloadable video found.');
+            }
 
             await sock.sendMessage(chatId, {
-                video: {
-                    url: video.downloadUrl
-                },
+                video: { url: video },
                 mimetype: 'video/mp4',
-                fileName: `${video.title || 'facebook-video'}.mp4`,
-                caption: `🎬 *${video.title || 'Facebook Video'}*\n\n> *_Downloaded by GEOCENTRIX-BOT_*`
+                fileName: 'facebook.mp4',
+                caption: `🎬 ${result.title || 'Facebook Video'}`
             }, { quoted: message });
 
         } catch (err) {
-
             console.error(err);
 
             await sock.sendMessage(chatId, {
-                text: `❌ Download failed!\nReason: ${err.message}`
+                text: `❌ Download failed!\n${err.message}`
             }, { quoted: message });
-
         }
     }
 };
