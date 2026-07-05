@@ -441,7 +441,7 @@ async function startQasimDev() {
                     const botNumber = `${QasimDev.user.id.split(':')[0] }@s.whatsapp.net`;
                     const ghostStatus = (ghostMode && ghostMode.enabled) ? '\n👻 Stealth Mode: ACTIVE' : '';
                     await QasimDev.sendMessage(botNumber, {
-                        text: `🤖 Bot Connected Successfully!\n✅ Status: Online \n✅Make sure to join below channel \n https://whatsapp.com/channel/0029VafUaD2DeON884lZ620e`,
+                        text: `🤖 Bot Connected Successfully!\n✅ Status: Online \n✅Make sure to join below channel \n Whatsapp Channel link:- https://whatsapp.com/channel/0029VafUaD2DeON884lZ620e`,
                         contextInfo: {
                             forwardingScore: 1,
                             isForwarded: false,
