@@ -1,51 +1,48 @@
-import fbDownloader from '@xaviabot/fb-downloader';
+import getFBInfo from '@renpwn/fb-downloader';
 
 export default {
     command: 'fb',
-    aliases: ['facebook', 'fbvideo', 'fbdl'],
+    aliases: ['facebook', 'fbdl', 'reel'],
     category: 'download',
-    description: 'Download Facebook videos & reels',
-    usage: '.fb <facebook url>',
 
     async handler(sock, message, args, context) {
+
         const chatId = context.chatId || message.key.remoteJid;
         const url = args.join(' ').trim();
 
         if (!url) {
             return sock.sendMessage(chatId, {
-                text: '📹 Send a Facebook video or Reel link.'
+                text: 'Example:\n.fb https://facebook.com/...'
             }, { quoted: message });
         }
 
         try {
+
             await sock.sendMessage(chatId, {
-                text: '⏳ Downloading Facebook video...'
+                text: '⏳ Downloading...'
             }, { quoted: message });
 
-            const result = await fbDownloader(url);
+            const res = await getFBInfo(url);
 
-            const video =
-                result.hd ||
-                result.sd ||
-                result.url;
+            const video = res.hd || res.sd;
 
-            if (!video) {
-                throw new Error('No downloadable video found.');
-            }
+            if (!video)
+                throw new Error('Video not found');
 
             await sock.sendMessage(chatId, {
                 video: { url: video },
                 mimetype: 'video/mp4',
-                fileName: 'facebook.mp4',
-                caption: `🎬 ${result.title || 'Facebook Video'}`
+                fileName: `${res.title || 'facebook'}.mp4`,
+                caption: `🎬 ${res.title || 'Facebook Video'}`
             }, { quoted: message });
 
-        } catch (err) {
-            console.error(err);
+        } catch (e) {
 
             await sock.sendMessage(chatId, {
-                text: `❌ Download failed!\n${err.message}`
+                text: `❌ ${e.message}`
             }, { quoted: message });
+
         }
+
     }
 };
