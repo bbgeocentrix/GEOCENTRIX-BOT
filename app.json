@@ -1,8 +1,8 @@
 {
-  "name": "mega-md",
+  "name": "GEOCENTRIX-BOT",
   "description": "High performance multi-device WhatsApp bot",
-  "keywords": ["whatsapp-bot", "baileys", "mega-md"],
-  "repository": "https://github.com/GlobalTechInfo/MEGA-MD",
+  "keywords": ["whatsapp-bot", "baileys", "GEOCENTRIX-BOT"],
+  "repository": "https://github.com/bbgeocentrix/GEOCENTRIX-BOT",
   "stack": "container",
   "env": {
     "SESSION_ID": {
