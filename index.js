@@ -290,9 +290,8 @@ async function startQasimDev() {
                             text: '❌ An error occurred while processing your message.',
                             contextInfo: {
                                 forwardingScore: 1,
-                                isForwarded: true,
+                                isForwarded: false,
                                 forwardedNewsletterMessageInfo: {
-                                    newsletterJid: '120363319098372999@newsletter',
                                     newsletterName: 'GEOCENTRIX',
                                     serverMessageId: -1
                                 }
