@@ -1,6 +1,6 @@
 {
-  "name": "mega-md",
-  "version": "6.0.0",
+  "name": "GEOCENTRIX-BOT",
+  "version": "V-1",
   "description": "High performance multi-device WhatsApp bot",
   "type": "module",
   "main": "index.js",
@@ -34,13 +34,13 @@
     "nodejs-bot",
     "javascript-bot"
   ],
-  "homepage": "https://github.com/GlobalTechInfo/MEGA-MD",
+  "homepage": "https://github.com/bbgeocentix/GEOCENTRIX-BOT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/GlobalTechInfo/MEGA-MD.git"
+    "url": "git+https://github.com/bbgeocentix/GEOCENTRIX-BOT.git"
   },
   "bugs": {
-    "url": "https://github.com/GlobalTechInfo/MEGA-MD/issues"
+    "url": "https://github.com/bbgeocentix/GEOCENTRIX-BOT/issues"
   },
   "license": "MIT",
   "author": "Qasim Ali",
