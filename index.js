@@ -185,7 +185,7 @@ async function startQasimDev() {
     try {
         const { version } = await fetchLatestBaileysVersion();
         ensureSessionDirectory();
-        await delay(1000);
+        await delay(100);
         const { state, saveCreds } = await useMultiFileAuthState(`./session`);
         const _saveCreds = async () => {
             ensureSessionDirectory();
