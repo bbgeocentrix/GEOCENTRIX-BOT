@@ -50,7 +50,7 @@ export default {
         }
         catch (err) {
             console.error('Facebook downloader error:', err);
-            await sock.sendMessage(chatId, { text: '❌ Failed to download Facebook video. Please try again later.' }, { quoted: message });
+            await sock.sendMessage(chatId, { text: '❌ Failed to download Facebook video. Please try again later.' });
         }
     }
 };
