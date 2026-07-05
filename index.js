@@ -30,14 +30,14 @@ setInterval(() => {
         global.gc();
         console.log('🧹 Garbage collection completed');
     }
-}, 60000);
+}, 1000);
 setInterval(() => {
     const used = process.memoryUsage().rss / 1024 / 1024;
-    if (used > 4000) {
+    if (used > 1000) {
         printLog('warning', 'RAM too high (>400MB), restarting bot...');
         process.exit(1);
     }
-}, 30000);
+}, 1000);
 const phoneNumber = config.pairingNumber || config.ownerNumber || "923051391005";
 // Auto-create data directory and default files on startup
 const DATA_DEFAULTS = {
