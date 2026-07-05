@@ -292,7 +292,7 @@ async function startQasimDev() {
                                 forwardingScore: 1,
                                 isForwarded: true,
                                 forwardedNewsletterMessageInfo: {
-                                    newsletterJid: '0029VafUaD2DeON884lZ620e@newsletter',
+                                    newsletterJid: '120363319098372999@newsletter',
                                     newsletterName: 'GEOCENTRIX',
                                     serverMessageId: -1
                                 }
