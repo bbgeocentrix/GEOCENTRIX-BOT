@@ -27,7 +27,7 @@ export default {
             await sock.sendMessage(chatId, {
                 text: txt,
                 contextInfo: {
-                    isForwarded: true,
+                    isForwarded: false,
                     forwardingScore: 999
                 }
             });
