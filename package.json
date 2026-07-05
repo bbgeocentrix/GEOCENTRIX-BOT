@@ -83,10 +83,6 @@
     "@tobyg74/tiktok-api-dl": "latest",
     "instagram-url-direct": "latest",
     "btch-downloader": "latest"
- 
-
-
-
 
   },
   "devDependencies": {
