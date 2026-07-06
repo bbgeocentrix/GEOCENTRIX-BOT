@@ -4,7 +4,7 @@ const config = {
     // Bot Identity
     botName: process.env.BOT_NAME || '🌎GEOCENTRIX-BOT🌎',
     botOwner: process.env.BOT_OWNER || 'BIG BOSS',
-    ownerNumber: process.env.OWNER_NUMBER || '94783586382',
+    ownerNumber: process.env.OWNER_NUMBER || '',
     author: process.env.AUTHOR || '🌎GEOCENTRIX🌎',
     packname: process.env.PACKNAME || '🌎GEOCENTRIX🌎',
     description: process.env.DESCRIPTION || 'High performance multi-device WhatsApp bot',
@@ -19,8 +19,8 @@ const config = {
     updateZipUrl: process.env.UPDATE_URL || 'https://github.com/bbgeocentrix/MEGA-MD/archive/refs/heads/main.zip',
     ytChannel: process.env.YT_CHANNEL || 'BIG BOSS',
     // Session
-    sessionId: process.env.SESSION_ID || 'MEGA-MD_661fc40e66c95828c322e604c5ff1728',
-    pairingNumber: process.env.PAIRING_NUMBER || '94783586382',
+    sessionId: process.env.SESSION_ID || '',
+    pairingNumber: process.env.PAIRING_NUMBER || '',
     // Performance
     port: Number(process.env.PORT) || 5000,
     maxStoreMessages: Number(process.env.MAX_STORE_MESSAGES) || 50,
