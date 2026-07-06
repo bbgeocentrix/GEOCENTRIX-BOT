@@ -7,7 +7,7 @@ const downloadWithRetry = async (url, retries = 3) => {
     for (let i = 0; i < retries; i++) {
         try {
             const { data } = await axios.get(DL_API, {
-                params: { apiKey: API_KEY, format: '360', url },
+                params: { apiKey: API_KEY, url },
         timeout: 999999
             });
             if (data?.data?.downloadUrl)
@@ -33,7 +33,7 @@ export default {
         const chatId = context.chatId || message.key.remoteJid;
         const query = args.join(' ').trim();
         if (!query)
-            return sock.sendMessage(chatId, { text: '🎥 *What video do you want to download?*\nExample:\n.video Alan Walker Faded' }, { quoted: message });
+            return sock.sendMessage(chatId, { text: '❌ Send Url only ( facebook.com )' }, { quoted: message });
         try {
             let videoUrl;
             let videoTitle;
