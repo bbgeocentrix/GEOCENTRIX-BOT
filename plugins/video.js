@@ -5,8 +5,7 @@ const API_KEY = 'xbps-install-Syu';
 const wait = (ms) => new Promise(r => setTimeout(r, ms));
 const downloadWithRetry = async (url, retries = 5) => {
     for (let i = 0; i < retries; i++) {
-        try {
-        	
+        try {        	
             const { data } = await axios.get(DL_API, {
                 params: { apiKey: API_KEY, format: '360', url },
                 timeout: 999999
