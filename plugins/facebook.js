@@ -49,7 +49,7 @@ export default {
                 videoTitle = videos[0].title;
                 videoThumbnail = videos[0].thumbnail;
             }
-            const validYT = videoUrl.match(/(?:facebook\.com\/|www\.facebook\.com\/(?:v?v=|r\/|embed\/))([a-zA-Z0-9_-]{11})/);
+            const validYT = videoUrl.match(/(?:facebook\.com\/|www\.facebook\.com\/([a-zA-Z0-9_-]{11})/);
             if (!validYT)
                 return sock.sendMessage(chatId, { text: '❌ Not a valid YouTube link!' }, { quoted: message });
             const ytId = validYT[1];
