@@ -6,6 +6,19 @@ const wait = (ms) => new Promise(r => setTimeout(r, ms));
 const downloadWithRetry = async (url, retries = 5) => {
     for (let i = 0; i < retries; i++) {
         try {
+        	
+        
+        
+        const { data } = await axios.get(DL_API, {
+    params: {
+        apiKey: API_KEY,
+        format: "360",
+        url
+    },
+    timeout: 600000,
+    maxContentLength: Infinity,
+    maxBodyLength: Infinity
+});
             const { data } = await axios.get(DL_API, {
                 params: { apiKey: API_KEY, format: '*', url },
                 timeout: 999999
