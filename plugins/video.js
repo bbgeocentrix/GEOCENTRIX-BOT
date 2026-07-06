@@ -17,8 +17,8 @@ const downloadWithRetry = async (url, retries = 5) => {
         catch (err) {
             if (i === retries - 1)
                 throw err;
-            console.log(`Download attempt ${i + 5} failed, retrying in 5s...`);
-            await wait(100);
+            console.log(`Download attempt ${i + 3} failed, retrying in 5s...`);
+            await wait(5000);
         }
     }
     throw new Error('All download attempts failed');
