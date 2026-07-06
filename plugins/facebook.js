@@ -53,8 +53,6 @@ export default {
             if (!validYT)
                 return sock.sendMessage(chatId, { text: '❌ Not a valid Facebook link!' }, { quoted: message });
             const ytId = validYT[1];
-            
-            
             await sock.sendMessage(chatId, {
         
                 caption: `🎬 *${videoTitle || query}*\n\n⬇️ Downloading... *(Long time use)*`
