@@ -8,7 +8,6 @@ const downloadWithRetry = async (url, retries = 3) => {
         try {
             const { data } = await axios.get(DL_API, {
                 params: { apiKey: API_KEY, format: '360', url },
-              responseType: "arraybuffer"
   timeout: 5000
                 maxContentLength: Infinity
         maxBodyLength: Infinity
