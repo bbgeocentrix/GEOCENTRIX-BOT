@@ -41,7 +41,7 @@ export default {
                 return sock.sendMessage(chatId, { text: '❌ *No results found!*' }, { quoted: message });
             const video = videos[0];
             await sock.sendMessage(chatId, {
-                text: `✅ *Found:* ${video.title}\n⏱️ ${video.timestamp}\n👤 ${video.author.name}\n\n⏳ *Downloading... (this may take up to 30s)*`
+                text: `✅ *Found:* ${video.title}\n⏱️ ${video.timestamp}\n👤 ${video.author.name}\n\n⏳ *Downloading... (Long time use)*`
             }, { quoted: message });
             const songData = await downloadWithRetry(video.url);
             let thumbnailBuffer;
