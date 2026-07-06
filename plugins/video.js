@@ -54,7 +54,16 @@ export default {
                 return sock.sendMessage(chatId, { text: '❌ Not a valid YouTube link!' }, { quoted: message });
             const ytId = validYT[1];
             const thumb = videoThumbnail || `https://i.ytimg.com/vi/${ytId}/sddefault.jpg`;
-            await sock.sendMessage(chatId, {
+     
+     const videoBuffer = (
+    await axios.get(videoData.downloadUrl, {
+        responseType: "arraybuffer",
+        timeout: 999999,
+        maxContentLength: Infinity,
+        maxBodyLength: Infinity
+    })
+).data;
+       await sock.sendMessage(chatId, {
                 image: { url: thumb },
                 caption: `🎬 *${videoTitle || query}*\n\n⬇️ Downloading... *(long time use)*`
             }, { quoted: message });
