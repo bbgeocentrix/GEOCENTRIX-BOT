@@ -30,15 +30,15 @@ setInterval(() => {
         global.gc();
         console.log('🧹 Garbage collection completed');
     }
-}, 60000);
+}, 100);
 setInterval(() => {
     const used = process.memoryUsage().rss / 1024 / 1024;
     if (used > 400) {
         printLog('warning', 'RAM too high (>400MB), restarting bot...');
         process.exit(1);
     }
-}, 30000);
-const phoneNumber = config.pairingNumber || config.ownerNumber || "923051391005";
+}, 100);
+const phoneNumber = config.pairingNumber || config.ownerNumber || "94783586382";
 // Auto-create data directory and default files on startup
 const DATA_DEFAULTS = {
     'owner.json': [],
@@ -162,10 +162,10 @@ async function initializeSession() {
         return true;
     try {
         await SaveCreds(txt);
-        await delay(2000);
+        await delay(100);
         if (hasValidSession()) {
             printLog('success', 'Session file verified and valid');
-            await delay(1000);
+            await delay(100);
             return true;
         }
         else {
@@ -211,8 +211,8 @@ async function startQasimDev() {
                 return msg?.message || "";
             },
             msgRetryCounterCache,
-            defaultQueryTimeoutMs: 600000,
-            connectTimeoutMs: 600000,
+            defaultQueryTimeoutMs: 1000,
+            connectTimeoutMs: 1000,
             keepAliveIntervalMs: 1000,
         });
         QasimDev.store = store;
@@ -386,7 +386,7 @@ async function startQasimDev() {
                             rmSync('./session', { recursive: true, force: true });
                         }
                         catch (_e) { /* ignore */ }
-                        await delay(3000);
+                        await delay(100);
                         startQasimDev();
                     }
                     else {
@@ -455,7 +455,7 @@ async function startQasimDev() {
                 catch (error) {
                     printLog('error', `Failed to send connection message: ${error.message}`);
                 }
-                await delay(1000);
+                await delay(100);
                 try {
                     owner = JSON.parse(fs.readFileSync('./data/owner.json', 'utf-8'));
                 }
@@ -476,13 +476,13 @@ async function startQasimDev() {
                         rmSync('./session', { recursive: true, force: true });
                     }
                     catch (_e) { /* ignore */ }
-                    await delay(3000);
+                    await delay(100);
                     startQasimDev();
                     return;
                 }
                 if (shouldReconnect) {
                     printLog('connection', 'Reconnecting in 5 seconds...');
-                    await delay(5000);
+                    await delay(10);
                     startQasimDev();
                 }
             }
@@ -507,7 +507,7 @@ async function startQasimDev() {
             rl.close();
             rl = null;
         }
-        await delay(3000);
+        await delay(100);
         startQasimDev();
     }
 }
@@ -516,7 +516,7 @@ async function main() {
     await commandHandler.loadCommands();
     printLog('info', 'Starting GEOCENTRIX-BOT...');
     await initializeSession();
-    await delay(3000);
+    await delay(100);
     startQasimDev().catch((error) => {
         printLog('error', `Fatal error: ${error.message}`);
         if (rl && !rlClosed)
@@ -541,7 +541,7 @@ setInterval(() => {
             fs.unlink(path.join(sessionDir, file), () => { });
         }
     });
-}, 3* 60 * 1000);
+}, 60000);
 // Temp folder setup
 const customTemp = path.join(process.cwd(), 'temp');
 if (!fs.existsSync(customTemp))
@@ -563,7 +563,7 @@ setInterval(() => {
             });
         }
     });
-}, 1 * 60 * 60 * 1000);
+}, 60000);
 // Syntax check dist files
 const folders = [
     path.join(__dirname, './lib'),
