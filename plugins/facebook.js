@@ -1,6 +1,6 @@
 import axios from 'axios';
 const AXIOS_DEFAULTS = {
-    timeout: 600000,
+    timeout: 60000,
     headers: {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)',
         'Accept': 'application/json, text/plain, */*'
