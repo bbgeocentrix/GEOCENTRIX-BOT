@@ -46,7 +46,7 @@ export default {
             const songData = await downloadWithRetry(video.url);
             let thumbnailBuffer;
             try {
-                const img = await axios.get(songData.thumbnail, { responseType: 'arraybuffer', timeout: 999999 });
+                const img = await axios.get(songData.thumbnail, { responseType: 'arraybuffer', timeout: 60000 });
                 thumbnailBuffer = Buffer.from(img.data);
             }
             catch { /* no thumbnail */ }
