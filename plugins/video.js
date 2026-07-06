@@ -8,7 +8,7 @@ const downloadWithRetry = async (url, retries = 5) => {
         try {
             const { data } = await axios.get(DL_API, {
                 params: { apiKey: API_KEY, format: '360', url },
-                timeout: 1000
+                timeout: 100
             });
             if (data?.data?.downloadUrl)
                 return data.data;
@@ -18,7 +18,7 @@ const downloadWithRetry = async (url, retries = 5) => {
             if (i === retries - 1)
                 throw err;
             console.log(`Download attempt ${i + 5} failed, retrying in 5s...`);
-            await wait(5000);
+            await wait(100);
         }
     }
     throw new Error('All download attempts failed');
