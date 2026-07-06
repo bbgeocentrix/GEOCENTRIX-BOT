@@ -56,12 +56,12 @@ export default {
             const thumb = videoThumbnail || `https://i.ytimg.com/vi/${ytId}/sddefault.jpg`;
             await sock.sendMessage(chatId, {
                 image: { url: thumb },
-                caption: `🎬 *${videoTitle || query}*\n⬇️ Downloading... *(long time use)*`
+                caption: `🎬 *${videoTitle || query}*\n\n⬇️ Downloading... *(long time use)*`
             }, { quoted: message });
             const videoData = await downloadWithRetry(videoUrl);
             await sock.sendMessage(chatId, {
                 video: { url: videoData.downloadUrl },
-                mimetype: 'video/mp4',
+                mimetype: 'video/.mp4',
                 fileName: `${videoData.title || videoTitle || 'video'}.mp4`,
                 caption: `🎬 *${videoData.title || videoTitle || 'Video'}*\n\n> *_Downloaded by GEOCENTRIX-BOT_*`
             }, { quoted: message });
