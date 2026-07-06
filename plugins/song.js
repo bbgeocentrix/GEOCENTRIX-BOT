@@ -48,7 +48,7 @@ export default {
             if (video.thumbnail) {
                 await sock.sendMessage(chatId, {
                     image: { url: video.thumbnail },
-                    caption: `🎶 *${video.title || query}*\n⏱ ${video.timestamp || ''}\n\n📥 Downloading... *(⏳ Wetting 2 min)*`
+                    caption: `🎶 *${video.title || query}*\n\n⏱ ${video.timestamp || ''}\n\n📥 Downloading... *(⏳ Wetting 2 min)*`
                 }, { quoted: message });
             }
             const audio = await downloadWithRetry(video.url);
