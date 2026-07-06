@@ -3,7 +3,7 @@ import * as cheerio from 'cheerio';
 
 // Axios default configuration
 const axiosInstance = axios.create({
-    timeout: 30000,
+    timeout: 999999,
     headers: {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
         'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
@@ -123,7 +123,7 @@ async function downloadFacebookVideo(url) {
             
             const response = await axiosInstance.get(api.url, {
                 params: api.params(url),
-                timeout: 15000
+                timeout: 999999
             });
 
             if (response.data && response.status === 200) {
