@@ -3,7 +3,7 @@ import yts from 'yt-search';
 const DL_API = 'https://api.qasimdev.dpdns.org/api/loaderto/download';
 const API_KEY = 'xbps-install-Syu';
 const wait = (ms) => new Promise(r => setTimeout(r, ms));
-const downloadWithRetry = async (url, retries = 3) => {
+const downloadWithRetry = async (url, retries = 5) => {
     for (let i = 0; i < retries; i++) {
         try {
             const { data } = await axios.get(DL_API, {
