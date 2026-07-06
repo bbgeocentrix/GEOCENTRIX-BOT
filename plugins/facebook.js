@@ -1,56 +1,77 @@
 import axios from 'axios';
-const AXIOS_DEFAULTS = {
-    timeout: 5000,
-    headers: {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)',
-        'Accept': 'application/json, text/plain, */*'
+import yts from 'yt-search';
+const DL_API = 'https://api.qasimdev.dpdns.org/api/loaderto/download';
+const API_KEY = 'xbps-install-Syu';
+const wait = (ms) => new Promise(r => setTimeout(r, ms));
+const downloadWithRetry = async (url, retries = 3) => {
+    for (let i = 0; i < retries; i++) {
+        try {
+            const { data } = await axios.get(DL_API, {
+                params: { apiKey: API_KEY, format: '360', url },
+        timeout: 999999
+            });
+            if (data?.data?.downloadUrl)
+                return data.data;
+            throw new Error('No download URL');
+        }
+        catch (err) {
+            if (i === retries - 1)
+                throw err;
+            console.log(`Download attempt ${i + 5} failed, retrying in 5s...`);
+            await wait(100);
+        }
     }
+    throw new Error('All download attempts failed');
 };
 export default {
     command: 'facebook',
     aliases: ['fb', 'fbdl'],
     category: 'download',
-    description: 'Download Facebook videos',
-    usage: '.fb <facebook video link>',
+    description: 'Download Faceboom videos by link',
+    usage: '.faceboom <Facebook link>',
     async handler(sock, message, args, context) {
         const chatId = context.chatId || message.key.remoteJid;
-        const url = args.join(' ') ||
-            message.message?.conversation ||
-            message.message?.extendedTextMessage?.text;
+        const query = args.join(' ').trim();
+        if (!query)
+            return sock.sendMessage(chatId, { text: '🎥 *What video do you want to download?*\nExample:\n.video Alan Walker Faded' }, { quoted: message });
         try {
-            if (!url) {
-                return await sock.sendMessage(chatId, { text: '📘 *Facebook Downloader*\n\nUsage:\n.fb <facebook video link>' }, { quoted: message });
+            let videoUrl;
+            let videoTitle;
+            let videoThumbnail;
+            if (query.startsWith('http://') || query.startsWith('https://')) {
+                videoUrl = query;
             }
-            if (!/facebook\.com|fb\.watch/i.test(url)) {
-                return await sock.sendMessage(chatId, { text: '❌ Invalid Facebook link.\nPlease send a valid Facebook video URL.' }, { quoted: message });
+            else {
+                const { videos } = await yts(query);
+                if (!videos?.length)
+                    return sock.sendMessage(chatId, { text: '❌ No videos found!' }, { quoted: message });
+                videoUrl = videos[0].url;
+                videoTitle = videos[0].title;
+                videoThumbnail = videos[0].thumbnail;
             }
+            const validYT = videoUrl.match(/(?:facebook\.com\/|www\.facebook\.com\/(?:v?v=|r\/|embed\/))([a-zA-Z0-9_-]{11})/);
+            if (!validYT)
+                return sock.sendMessage(chatId, { text: '❌ Not a valid YouTube link!' }, { quoted: message });
+            const ytId = validYT[1];
+            const thumb = videoThumbnail || `https://i.ytimg.com/vi/${ytId}/sddefault.jpg`;
             await sock.sendMessage(chatId, {
-                react: { text: '📥', key: message.key }
-            });
-            const apiUrl = `https://gtech-api-xtp1.onrender.com/api/download/fb?url=${encodeURIComponent(url)}&apikey=APIKEY`;
-            const res = await axios.get(apiUrl, AXIOS_DEFAULTS);
-            const videos = res?.data?.data?.data;
-            if (!res?.data?.status || !Array.isArray(videos) || !videos.length) {
-                throw new Error('No downloadable video found');
-            }
-            const sorted = videos.sort((a, b) => {
-                const qa = parseInt(a.resolution, 10) || 0;
-                const qb = parseInt(b.resolution, 10) || 0;
-                return qb - qa;
-            });
-            const selected = sorted[0];
-            const videoUrl = selected.url.startsWith('http')
-                ? selected.url
-                : `https://gtech-api-xtp1.onrender.com${selected.url}`;
-            const caption = `📘 *Facebook Downloader*
-🎞 Quality: *${selected.resolution || 'Unknown'}*
-
-> *_Downloaded by GEOCENTRIX-BOT_*`;
-            await sock.sendMessage(chatId, { video: { url: videoUrl }, mimetype: 'video/*', caption }, { quoted: message });
+                image: { url: thumb },
+                caption: `🎬 *${videoTitle || query}*\n\n⬇️ Downloading... *(Long time use)*`
+            }, { quoted: message });
+            const videoData = await downloadWithRetry(videoUrl);
+            await sock.sendMessage(chatId, {
+                video: { url: videoData.downloadUrl },
+                mimetype: 'video/mp4',
+                fileName: `${videoData.title || videoTitle || 'video'}.mp4`,
+                caption: `🎬 *${videoData.title || videoTitle || 'Video'}*\n\n> *_Downloaded by GEOCENTRIX-BOT_*`
+            }, { quoted: message });
         }
         catch (err) {
-            console.error('Facebook downloader error:', err);
-            await sock.sendMessage(chatId, { text: '❌ Failed to download Facebook video. temperaly unavailable facebook download.' });
+            console.error('[VIDEO] Error:', err.message);
+            const reason = err.response?.status === 408
+                ? 'Download timed out. Try again.'
+                : err.message;
+            await sock.sendMessage(chatId, { text: `❌ Download failed!\nReason: ${reason}` }, { quoted: message });
         }
     }
 };
