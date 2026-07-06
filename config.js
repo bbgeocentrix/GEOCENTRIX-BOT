@@ -15,7 +15,7 @@ const config = {
     commandMode: process.env.COMMAND_MODE || 'private',
     timeZone: process.env.TIMEZONE || 'Asia/Karachi',
     // Links
-    channelLink: process.env.CHANNEL_LINK || 'https://whatsapp.com/channel/0029VafUaD2DeON884lZ620e',
+    channelLink: process.env.CHANNEL_LINK || '',
     updateZipUrl: process.env.UPDATE_URL || 'https://github.com/bbgeocentrix/MEGA-MD/archive/refs/heads/main.zip',
     ytChannel: process.env.YT_CHANNEL || 'BIG BOSS',
     // Session
