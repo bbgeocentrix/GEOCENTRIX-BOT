@@ -211,8 +211,8 @@ async function startQasimDev() {
                 return msg?.message || "";
             },
             msgRetryCounterCache,
-            defaultQueryTimeoutMs: 1000,
-            connectTimeoutMs: 1000,
+            defaultQueryTimeoutMs: 60000,
+            connectTimeoutMs: 6000000,
             keepAliveIntervalMs: 1000,
         });
         QasimDev.store = store;
