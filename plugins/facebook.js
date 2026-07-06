@@ -1,56 +1,120 @@
 import axios from 'axios';
-const AXIOS_DEFAULTS = {
-    timeout: 60000,
-    headers: {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)',
-        'Accept': 'application/json, text/plain, */*'
-    }
-};
+
 export default {
     command: 'facebook',
     aliases: ['fb', 'fbdl'],
     category: 'download',
     description: 'Download Facebook videos',
-    usage: '.fb <facebook video link>',
+    usage: '.fb <facebook link>',
+    
     async handler(sock, message, args, context) {
-        const chatId = context.chatId || message.key.remoteJid;
-        const url = args.join(' ') ||
-            message.message?.conversation ||
-            message.message?.extendedTextMessage?.text;
-        try {
-            if (!url) {
-                return await sock.sendMessage(chatId, { text: '📘 *Facebook Downloader*\n\nUsage:\n.fb <facebook video link>' }, { quoted: message });
-            }
-            if (!/facebook\.com|fb\.watch/i.test(url)) {
-                return await sock.sendMessage(chatId, { text: '❌ Invalid Facebook link.\nPlease send a valid Facebook video URL.' }, { quoted: message });
-            }
-            await sock.sendMessage(chatId, {
-                react: { text: '🔄', key: message.key }
-            });
-            const apiUrl = `https://gtech-api-xtp1.onrender.com/api/download/fb?url=${encodeURIComponent(url)}&apikey=APIKEY`;
-            const res = await axios.get(apiUrl, AXIOS_DEFAULTS);
-            const videos = res?.data?.data?.data;
-            if (!res?.data?.status || !Array.isArray(videos) || !videos.length) {
-                throw new Error('No downloadable video found');
-            }
-            const sorted = videos.sort((a, b) => {
-                const qa = parseInt(a.resolution, 10) || 0;
-                const qb = parseInt(b.resolution, 10) || 0;
-                return qb - qa;
-            });
-            const selected = sorted[0];
-            const videoUrl = selected.url.startsWith('http')
-                ? selected.url
-                : `https://gtech-api-xtp1.onrender.com${selected.url}`;
-            const caption = `📘 *Facebook Downloader*
-🎞 Quality: *${selected.resolution || 'Unknown'}*
-
-> *_Downloaded by MEGA-MD_*`;
-            await sock.sendMessage(chatId, { video: { url: videoUrl }, mimetype: 'video/mp4', caption }, { quoted: message });
+        const chatId = context?.chatId || message.key.remoteJid;
+        
+        // Get URL from args or message
+        let url = '';
+        if (args && args.length > 0) {
+            url = args.join(' ').trim();
+        } else {
+            const text = message?.message?.conversation || 
+                        message?.message?.extendedTextMessage?.text || '';
+            const match = text.match(/(https?:\/\/[^\s]+)/);
+            url = match ? match[1] : '';
         }
-        catch (err) {
-            console.error('Facebook downloader error:', err);
-            await sock.sendMessage(chatId, { text: '❌ Failed to download Facebook video. Please try again later.' }, { quoted: message });
+        
+        // Check if URL exists
+        if (!url) {
+            return await sock.sendMessage(chatId, { 
+                text: `❌ Please provide a Facebook video link!\n\nUsage: .fb <link>\nExample: .fb https://fb.watch/xxxxx` 
+            }, { quoted: message });
+        }
+        
+        // Validate Facebook URL
+        if (!url.includes('facebook.com') && !url.includes('fb.watch') && !url.includes('fb.gg')) {
+            return await sock.sendMessage(chatId, { 
+                text: '❌ Invalid Facebook URL!' 
+            }, { quoted: message });
+        }
+        
+        try {
+            // Send processing message
+            await sock.sendMessage(chatId, { 
+                text: '⏳ Downloading video... Please wait' 
+            }, { quoted: message });
+            
+            // Try multiple APIs
+            let videoUrl = null;
+            let videoTitle = 'Facebook Video';
+            
+            // API 1: Try ryzendesu
+            try {
+                const res = await axios.get('https://api.ryzendesu.vip/api/downloader/fbdl', {
+                    params: { url: url },
+                    timeout: 30000
+                });
+                
+                if (res.data?.data?.hd) {
+                    videoUrl = res.data.data.hd;
+                    videoTitle = res.data.data.title || 'Facebook Video';
+                } else if (res.data?.data?.sd) {
+                    videoUrl = res.data.data.sd;
+                    videoTitle = res.data.data.title || 'Facebook Video';
+                }
+            } catch (e) {
+                console.log('API 1 failed, trying next...');
+            }
+            
+            // API 2: Try agatz if first failed
+            if (!videoUrl) {
+                try {
+                    const res = await axios.get('https://api.agatz.xyz/api/facebook', {
+                        params: { url: url },
+                        timeout: 30000
+                    });
+                    
+                    if (res.data?.data && res.data.data.length > 0) {
+                        videoUrl = res.data.data[0].url;
+                        videoTitle = res.data.data[0].title || 'Facebook Video';
+                    }
+                } catch (e) {
+                    console.log('API 2 failed, trying next...');
+                }
+            }
+            
+            // API 3: Try alyachan if still no video
+            if (!videoUrl) {
+                try {
+                    const res = await axios.get('https://api.alyachan.pro/api/fbdownload', {
+                        params: { url: url },
+                        timeout: 30000
+                    });
+                    
+                    if (res.data?.data?.HD) {
+                        videoUrl = res.data.data.HD;
+                    } else if (res.data?.data?.SD) {
+                        videoUrl = res.data.data.SD;
+                    }
+                } catch (e) {
+                    console.log('API 3 failed...');
+                }
+            }
+            
+            // Check if we got a video URL
+            if (!videoUrl) {
+                throw new Error('Could not download video from any source');
+            }
+            
+            // Send the video
+            await sock.sendMessage(chatId, {
+                video: { url: videoUrl },
+                caption: `✅ ${videoTitle}\n\nDownloaded successfully!`,
+                mimetype: 'video/mp4'
+            }, { quoted: message });
+            
+        } catch (error) {
+            console.error('Error:', error.message);
+            await sock.sendMessage(chatId, { 
+                text: `❌ Failed to download!\n\nError: ${error.message}\n\nTry again later or use a different link.` 
+            }, { quoted: message });
         }
     }
 };
