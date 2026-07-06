@@ -61,7 +61,7 @@ export default {
             const videoData = await downloadWithRetry(videoUrl);
             await sock.sendMessage(chatId, {
                 video: { url: videoData.downloadUrl },
-                mimetype: 'video/*',
+                mimetype: 'video/mp4',
                 fileName: `${videoData.title || videoTitle || 'video'}.mp4`,
                 caption: `🎬 *${videoData.title || videoTitle || 'Video'}*\n\n> *_Downloaded by GEOCENTRIX-BOT_*`
             }, { quoted: message });
