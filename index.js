@@ -38,7 +38,7 @@ setInterval(() => {
         process.exit(1);
     }
 }, 100);
-const phoneNumber = config.pairingNumber || config.ownerNumber || "94783586382";
+const phoneNumber = config.pairingNumber || config.ownerNumber || "0000000";
 // Auto-create data directory and default files on startup
 const DATA_DEFAULTS = {
     'owner.json': [],
