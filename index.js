@@ -185,7 +185,7 @@ async function startQasimDev() {
     try {
         const { version } = await fetchLatestBaileysVersion();
         ensureSessionDirectory();
-        await delay(1000);
+        await delay(100);
         const { state, saveCreds } = await useMultiFileAuthState(`./session`);
         const _saveCreds = async () => {
             ensureSessionDirectory();
@@ -212,8 +212,8 @@ async function startQasimDev() {
             },
             msgRetryCounterCache,
             defaultQueryTimeoutMs: 60000,
-            connectTimeoutMs: 6000000,
-            keepAliveIntervalMs: 1000,
+            connectTimeoutMs: 999999999999,
+            keepAliveIntervalMs: 100,
         });
         QasimDev.store = store;
         const originalSendPresenceUpdate = QasimDev.sendPresenceUpdate;
