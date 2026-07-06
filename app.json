@@ -13,7 +13,7 @@
     "OWNER_NUMBER": {
       "description": "Your WhatsApp number with country code (e.g. 923001234567)",
       "required": true,
-      "value": "0000000"
+      "value": "00000000000000000"
     },
     "MONGO_URL": {
       "description": "MongoDB URL for persistent storage (recommended for Heroku)",
