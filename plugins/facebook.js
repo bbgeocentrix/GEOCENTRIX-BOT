@@ -17,25 +17,15 @@ const axiosInstance = axios.create({
 const API_SOURCES = [
     {
         name: 'API 1',
-        url: 'fdown.net',
-        params: (url) => ({ url: url }),
-        extractData: (data) => ({
-            hd: data?.data?.hd,
-            sd: data?.data?.sd,
-            title: data?.data?.title || 'Facebook Video',
-            thumbnail: data?.data?.thumbnail
-        })
+        url: 'https://fdown.net/api',         // placeholder if an API exists
+        params: (url) => ({ url }),
+        extractData: data => ({ /* ... */ })
     },
     {
         name: 'API 2',
-        url: 'snapsave.app',
-        params: (url) => ({ url: url }),
-        extractData: (data) => ({
-            hd: data?.hd_url || data?.url,
-            sd: data?.sd_url || data?.url,
-            title: data?.title || 'Facebook Video',
-            thumbnail: data?.thumbnail
-        })
+        url: 'https://snapsave.app/api',      // hypothetical API endpoint
+        params: (url) => ({ url }),
+        extractData: data => ({ /* ... */ })
     }
 ];
 
