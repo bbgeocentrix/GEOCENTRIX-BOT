@@ -3,25 +3,25 @@ import yts from 'yt-search';
 const DL_API = 'https://api.qasimdev.dpdns.org/api/loaderto/download';
 const API_KEY = 'xbps-install-Syu';
 const wait = (ms) => new Promise(r => setTimeout(r, ms));
-const downloadWithRetry = async (url, retries = 3) => {
+const downloadWithRetry = async (url, retries = 5) => {
     for (let i = 0; i < retries; i++) {
         try {
             const { data } = await axios.get(DL_API, {
                 params: { apiKey: API_KEY, format: 'mp3', url },
-                timeout: 120000
+                timeout: 100
             });
             if (data?.data?.downloadUrl)
                 return data.data;
-            throw new Error('No download URL');
+            throw new Error(' 📎 No download URL');
         }
         catch (err) {
             if (i === retries - 1)
                 throw err;
-            console.log(`Download attempt ${i + 1} failed, retrying in 5s...`);
-            await wait(5000);
+            console.log(`♻️ Download attempt ${i + 5} failed, retrying in 5s...`);
+            await wait(100);
         }
     }
-    throw new Error('All download attempts failed');
+    throw new Error('❗All download attempts failed');
 };
 export default {
     command: 'song',
@@ -48,7 +48,7 @@ export default {
             if (video.thumbnail) {
                 await sock.sendMessage(chatId, {
                     image: { url: video.thumbnail },
-                    caption: `🎶 *${video.title || query}*\n⏱ ${video.timestamp || ''}\n\n⏳ Downloading... *(may take up to 30s)*`
+                    caption: `🎶 *${video.title || query}*\n⏱ ${video.timestamp || ''}\n\n📥 Downloading... *(⏳ Wetting 2 min)*`
                 }, { quoted: message });
             }
             const audio = await downloadWithRetry(video.url);
