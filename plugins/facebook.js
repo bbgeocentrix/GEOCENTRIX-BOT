@@ -17,7 +17,7 @@ const axiosInstance = axios.create({
 const API_SOURCES = [
     {
         name: 'API 1',
-        url: 'https://api.savetube.me/api/fb',
+        url: 'fdown.net',
         params: (url) => ({ url: url }),
         extractData: (data) => ({
             hd: data?.data?.hd,
@@ -28,7 +28,7 @@ const API_SOURCES = [
     },
     {
         name: 'API 2',
-        url: 'https://fbdownloader.app/api',
+        url: 'snapsave.app',
         params: (url) => ({ url: url }),
         extractData: (data) => ({
             hd: data?.hd_url || data?.url,
