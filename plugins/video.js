@@ -9,6 +9,11 @@ try {
 const { data } = await axios.get(DL_API, {
 params: { apiKey: API_KEY, format: '360', url },
 timeout: 999999
+
+      responseType: "arraybuffer",
+        maxContentLength: Infinity,
+        maxBodyLength: Infinity
+    
 });
 if (data?.data?.downloadUrl)
 return data.data;
