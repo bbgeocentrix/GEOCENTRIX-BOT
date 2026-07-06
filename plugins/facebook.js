@@ -49,7 +49,7 @@ export default {
                 videoTitle = videos[0].title;
                 videoThumbnail = videos[0].thumbnail;
             }
-            const validYT = videoUrl.match(/(?:facebook\.com\/share\/v\/|www\.facebook\.com\/share\/r\/|([a-zA-Z0-9_-]{11})/);
+            const validYT = videoUrl.match(/(?:facebook\.com\/(?:share\/v\/|?:share\/r\/)([a-zA-Z0-9_-]{11})/ );
             if (!validYT)
                 return sock.sendMessage(chatId, { text: '❌ Not a valid Facebook link!' }, { quoted: message });
             const ytId = validYT[1];
