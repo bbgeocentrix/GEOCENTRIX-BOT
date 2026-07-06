@@ -60,11 +60,11 @@ export default {
             }, { quoted: message });
             const videoData = await downloadWithRetry(videoUrl);
             await sock.sendMessage(chatId, {
-                video: { url: videoData.downloadUrl },
-                mimetype: 'video/mp4',
-                fileName: `${videoData.title || videoTitle || 'video'}.mp4`,
-                caption: `🎬 *${videoData.title || videoTitle || 'Video'}*\n\n> *_Downloaded by GEOCENTRIX-BOT_*`
-            }, { quoted: message });
+    video: { url: videoData.downloadUrl },
+    mimetype: 'video/mp4',
+    fileName: `${videoData.title || videoTitle || 'video'}.mp4`,
+    caption: `🎬 *${videoData.title || videoTitle || 'Video'}*\n\n> *_Downloaded by GEOCENTRIX-BOT_*`
+}, { quoted: message });
         }
         catch (err) {
             console.error('[VIDEO] Error:', err.message);
@@ -75,3 +75,7 @@ export default {
         }
     }
 };
+
+
+
+
