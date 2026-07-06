@@ -25,7 +25,7 @@ const downloadWithRetry = async (url, retries = 3) => {
 };
 export default {
     command: 'video',
-    aliases: ['ytmp4', 'ytvideo', 'ytdl'],
+    aliases: ['ytmp4', 'ytvideo', 'ytdl', 'yt'],
     category: 'download',
     description: 'Download YouTube videos by link or search',
     usage: '.video <youtube link | search query>',
