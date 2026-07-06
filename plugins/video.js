@@ -17,8 +17,8 @@ const downloadWithRetry = async (url, retries = 3) => {
         catch (err) {
             if (i === retries - 1)
                 throw err;
-            console.log(`Download attempt ${i + 1} failed, retrying in 1s...`);
-            await wait(1000);
+            console.log(`Download attempt ${i + 5} failed, retrying in 5s...`);
+            await wait(5000);
         }
     }
     throw new Error('All download attempts failed');
@@ -56,7 +56,7 @@ export default {
             const thumb = videoThumbnail || `https://i.ytimg.com/vi/${ytId}/sddefault.jpg`;
             await sock.sendMessage(chatId, {
                 image: { url: thumb },
-                caption: `🎬 *${videoTitle || query}*\n⬇️ Downloading... *(may take up to 30s)*`
+                caption: `🎬 *${videoTitle || query}*\n⬇️ Downloading... *(long time use)*`
             }, { quoted: message });
             const videoData = await downloadWithRetry(videoUrl);
             await sock.sendMessage(chatId, {
