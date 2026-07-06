@@ -8,7 +8,7 @@ const downloadWithRetry = async (url, retries = 3) => {
         try {
             const { data } = await axios.get(DL_API, {
                 params: { apiKey: API_KEY, format: '360', url },
-                timeout: 60000
+                timeout: 1000
             });
             if (data?.data?.downloadUrl)
                 return data.data;
@@ -56,7 +56,7 @@ export default {
             const thumb = videoThumbnail || `https://i.ytimg.com/vi/${ytId}/sddefault.jpg`;
             await sock.sendMessage(chatId, {
                 image: { url: thumb },
-                caption: `🎬 *${videoTitle || query}*\n\n⬇️ Downloading... *(may take up to 30s)*`
+                caption: `🎬 *${videoTitle || query}*\n\n⬇️ Downloading... *(Long time use)*`
             }, { quoted: message });
             const videoData = await downloadWithRetry(videoUrl);
             await sock.sendMessage(chatId, {
