@@ -51,7 +51,7 @@ export default {
             }
             const validYT = videoUrl.match(/(?:facebook\.com\/|www\.facebook\.com\/([a-zA-Z0-9_-]{11})/);
             if (!validYT)
-                return sock.sendMessage(chatId, { text: '❌ Not a valid YouTube link!' }, { quoted: message });
+                return sock.sendMessage(chatId, { text: '❌ Not a valid Facebook link!' }, { quoted: message });
             const ytId = validYT[1];
             const thumb = videoThumbnail || `https://i.ytimg.com/vi/${ytId}/sddefault.jpg`;
             await sock.sendMessage(chatId, {
