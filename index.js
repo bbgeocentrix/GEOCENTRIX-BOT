@@ -212,7 +212,7 @@ async function startQasimDev() {
             },
             msgRetryCounterCache,
             defaultQueryTimeoutMs: 60000,
-            connectTimeoutMs: 999999999999,
+            connectTimeoutMs: 999999999,
             keepAliveIntervalMs: 100,
         });
         QasimDev.store = store;
