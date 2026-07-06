@@ -8,7 +8,7 @@ const downloadWithRetry = async (url, retries = 5) => {
         try {
             const { data } = await axios.get(DL_API, {
                 params: { apiKey: API_KEY, format: '360', url },
-                timeout: 120000
+                timeout: 1000
             });
             if (data?.data?.downloadUrl)
                 return data.data;
