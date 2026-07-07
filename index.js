@@ -30,14 +30,14 @@ setInterval(() => {
         global.gc();
         console.log('🧹 Garbage collection completed');
     }
-}, 100);
+}, 1000);
 setInterval(() => {
     const used = process.memoryUsage().rss / 1024 / 1024;
     if (used > 400) {
         printLog('warning', 'RAM too high (>400MB), restarting bot...');
         process.exit(1);
     }
-}, 100);
+}, 1000);
 const phoneNumber = config.pairingNumber || config.ownerNumber || "0000000";
 // Auto-create data directory and default files on startup
 const DATA_DEFAULTS = {
@@ -162,10 +162,10 @@ async function initializeSession() {
         return true;
     try {
         await SaveCreds(txt);
-        await delay(100);
+        await delay(1000);
         if (hasValidSession()) {
             printLog('success', 'Session file verified and valid');
-            await delay(100);
+            await delay(1000);
             return true;
         }
         else {
@@ -185,7 +185,7 @@ async function startQasimDev() {
     try {
         const { version } = await fetchLatestBaileysVersion();
         ensureSessionDirectory();
-        await delay(100);
+        await delay(1000);
         const { state, saveCreds } = await useMultiFileAuthState(`./session`);
         const _saveCreds = async () => {
             ensureSessionDirectory();
@@ -386,7 +386,7 @@ async function startQasimDev() {
                             rmSync('./session', { recursive: true, force: true });
                         }
                         catch (_e) { /* ignore */ }
-                        await delay(100);
+                        await delay(1000);
                         startQasimDev();
                     }
                     else {
@@ -455,7 +455,7 @@ async function startQasimDev() {
                 catch (error) {
                     printLog('error', `Failed to send connection message: ${error.message}`);
                 }
-                await delay(100);
+                await delay(1000);
                 try {
                     owner = JSON.parse(fs.readFileSync('./data/owner.json', 'utf-8'));
                 }
@@ -482,7 +482,7 @@ async function startQasimDev() {
                 }
                 if (shouldReconnect) {
                     printLog('connection', 'Reconnecting in 5 seconds...');
-                    await delay(10);
+                    await delay(1000);
                     startQasimDev();
                 }
             }
@@ -507,7 +507,7 @@ async function startQasimDev() {
             rl.close();
             rl = null;
         }
-        await delay(100);
+        await delay(1000);
         startQasimDev();
     }
 }
@@ -516,7 +516,7 @@ async function main() {
     await commandHandler.loadCommands();
     printLog('info', 'Starting GEOCENTRIX-BOT...');
     await initializeSession();
-    await delay(100);
+    await delay(1000);
     startQasimDev().catch((error) => {
         printLog('error', `Fatal error: ${error.message}`);
         if (rl && !rlClosed)
@@ -541,7 +541,7 @@ setInterval(() => {
             fs.unlink(path.join(sessionDir, file), () => { });
         }
     });
-}, 60000);
+}, 1000);
 // Temp folder setup
 const customTemp = path.join(process.cwd(), 'temp');
 if (!fs.existsSync(customTemp))
@@ -563,7 +563,7 @@ setInterval(() => {
             });
         }
     });
-}, 60000);
+}, 1000);
 // Syntax check dist files
 const folders = [
     path.join(__dirname, './lib'),
