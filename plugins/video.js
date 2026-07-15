@@ -25,7 +25,7 @@ const downloadWithRetry = async (url, retries = 5) => {
 };
 export default {
     command: 'video',
-    aliases: ['ytmp4', 'ytvideo', 'ytdl'],
+    aliases: ['ytmp4', 'ytvideo', 'ytdl', 'yt'],
     category: 'download',
     description: 'Download YouTube videos by link or search',
     usage: '.video <youtube link | search query>',
@@ -56,7 +56,7 @@ export default {
             const thumb = videoThumbnail || `https://i.ytimg.com/vi/${ytId}/sddefault.jpg`;
             await sock.sendMessage(chatId, {
                 image: { url: thumb },
-                caption: `🎬 *${videoTitle || query}*\n⬇️ Downloading... *(may take up to 30s)*`
+                caption: `🎬 *${videoTitle || query}*\n⬇️ Downloading... *(Use long time)*`
             }, { quoted: message });
             const videoData = await downloadWithRetry(videoUrl);
             await sock.sendMessage(chatId, {
