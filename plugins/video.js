@@ -1,14 +1,14 @@
 import axios from 'axios';
 import yts from 'yt-search';
 const DL_API = 'https://api.qasimdev.dpdns.org/api/loaderto/download';
-const API_KEY = 'xbps-install-Syu';
+const API_KEY = 'qasim-dev';
 const wait = (ms) => new Promise(r => setTimeout(r, ms));
-const downloadWithRetry = async (url, retries = 3) => {
+const downloadWithRetry = async (url, retries = 5) => {
     for (let i = 0; i < retries; i++) {
         try {
             const { data } = await axios.get(DL_API, {
                 params: { apiKey: API_KEY, format: '360', url },
-        timeout: 999999
+                timeout: 999999
             });
             if (data?.data?.downloadUrl)
                 return data.data;
@@ -17,15 +17,15 @@ const downloadWithRetry = async (url, retries = 3) => {
         catch (err) {
             if (i === retries - 1)
                 throw err;
-            console.log(`Download attempt ${i + 5} failed, retrying in 5s...`);
-            await wait(100);
+            console.log(`Download attempt ${i + 1} failed, retrying in 5s...`);
+            await wait(5000);
         }
     }
     throw new Error('All download attempts failed');
 };
 export default {
     command: 'video',
-    aliases: ['ytmp4', 'ytvideo', 'ytdl', 'yt'],
+    aliases: ['ytmp4', 'ytvideo', 'ytdl'],
     category: 'download',
     description: 'Download YouTube videos by link or search',
     usage: '.video <youtube link | search query>',
@@ -56,14 +56,14 @@ export default {
             const thumb = videoThumbnail || `https://i.ytimg.com/vi/${ytId}/sddefault.jpg`;
             await sock.sendMessage(chatId, {
                 image: { url: thumb },
-                caption: `🎬 *${videoTitle || query}*\n\n⬇️ Downloading... *(Long time use)*`
+                caption: `🎬 *${videoTitle || query}*\n⬇️ Downloading... *(may take up to 30s)*`
             }, { quoted: message });
             const videoData = await downloadWithRetry(videoUrl);
             await sock.sendMessage(chatId, {
                 video: { url: videoData.downloadUrl },
                 mimetype: 'video/mp4',
                 fileName: `${videoData.title || videoTitle || 'video'}.mp4`,
-                caption: `🎬 *${videoData.title || videoTitle || 'Video'}*\n\n> *_Downloaded by GEOCENTRIX-BOT_*`
+                caption: `🎬 *${videoData.title || videoTitle || 'Video'}*\n\n> *_Downloaded by GEOCENTRIX-BOT*`
             }, { quoted: message });
         }
         catch (err) {
